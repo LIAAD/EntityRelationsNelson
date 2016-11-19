@@ -32,6 +32,8 @@ Third, set some parameters:
 * `exceptions` - vector with named entities to ignore on pairing process 
 * `use.stemming` - `TRUE` / `FALSE`
 
+
+
 ## PREPROCESSING
 
 ### NAMED ENTITY PROCESSING
@@ -48,16 +50,21 @@ To know where named entities are on a text, there are two ways:
 Some named entity cleaning is done with `cleanEntities` function where `exceptions` are removed too.
 * `entities` is the data frame with named entity information
 * `special.cases` is a vector with row numbers from specific instances to remove
+
 The returned data frame has the same structure but without the retired records.
+
 
 If it is required only named entities, forming certain numbers on the sentences, it is required to use `countEntities` function firstly:
 * `entity.locations` is the data frame with information about named entities and respective positions by `File`, `Paragraph` and `Sentence`
+
 The returned data frame has `File`, `Paragraph`, `Sentence` and `occurrences` that counts named entities in the position defined by the previous three attributes.
+
 
 Then `filterSentences` function allows to preserve named entity information, where this ones form certain numbers on respective sentences:
 * `entity.locations` - data frame with information about named entities and respective positions by `File`, `Paragraph` and `Sentence`
 * `sentence.entities` - data frame with the named entity occurrences per sentence 
 * `entity.number` - a vector with the required numbers of named entities on sentences
+
 The returned data frame has the same structure but without named entities escaping from filtering.
 
 ### NAMED ENTITY PAIRING
@@ -68,11 +75,15 @@ Such way that availed named entities are used to pairing, it is required to use 
 * `order.significance`
  * `TRUE` - elements of named entity pairs are displayed by appearance order on sentence
  * `FALSE` - the elements are displayed by lexicographic order
+ 
 The data frame that results has `entity1.name` and `entity2.name` attributes as left and right elements of pairs. Also it has `context` attribute that is a string for each pair and it is defined according `what.context` parameter. The number of returned pairs can be influenced by `only.consecutive` parameter.
 
 To avoid repeated pairs and to join every contexts with pair in common, `aggregateContexts` function is essential:
 * `relations` - data frame with the pairs of named entities and the extracted contexts
+
 The returned data frame, with the same attributes as the argument, has distinct pairs and a list with every contexts for each pair.
+
+
 
 ## CLUSTERING
 
