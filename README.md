@@ -62,7 +62,17 @@ The returned data frame has the same structure but without named entities escapi
 
 ### NAMED ENTITY PAIRING
 
-...
+Such way that availed named entities are used to pairing, it is required to use `scanIteratively` or `scanEfficiently` where both has the same arguments:
+* `entities` - a data frame with the attributes returned on recognition stage
+* `relation.file` - a string, when it is not empty (value by default), to name a CSV file with every pairs and respective contexts encountered
+* `order.significance`
+ * `TRUE` - elements of named entity pairs are displayed by appearance order on sentence
+ * `FALSE` - the elements are displayed by lexicographic order
+The data frame that results has `entity1.name` and `entity2.name` attributes as left and right elements of pairs. Also it has `context` attribute that is a string for each pair and it is defined according `what.context` parameter. The number of returned pairs can be influenced by `only.consecutive` parameter.
+
+To avoid repeated pairs and to join every contexts with pair in common, `aggregateContexts` function is essential:
+* `relations` - data frame with the pairs of named entities and the extracted contexts
+The returned data frame, with the same attributes as the argument, has distinct pairs and a list with every contexts for each pair.
 
 ## CLUSTERING
 
