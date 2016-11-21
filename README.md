@@ -22,14 +22,14 @@ Third, set some parameters:
 * `textual.content`
   * a string indicating the folder path when `data.type="folder"`
   * a string with the exact content when `data.type="text"`
-* `idiom` - `"pt"` is the only possible language by now
+* `idiom` - defined language to named entity recognition and stemming (`"pt"` is the only possible by now)
 * `what.context`
   * `"all"` if it is the complete context to extract
   * `"between"` if it is the intermediate context to extract
 * `only.consecutive`
   * `TRUE` allows pairing involving only consecutive named entities on the same sentence
   * `FALSE` allows pairing involving every named entities on the same sentence
-* `exceptions` - vector with named entities to ignore on pairing process 
+* `exceptions` - vector with named entities to ignore on pairing process and to remove on corpus mapping 
 * `use.stemming` - `TRUE` / `FALSE`
 
 
@@ -87,7 +87,20 @@ The returned data frame, with the same attributes as the argument, has distinct 
 
 ## CLUSTERING
 
-...
+Picking named entity pairs and respective contexts, pair clustering can be executed with `defineClustering`:
+* `pair.contexts` - data frame with named entity pairs and lists of contexts
+* `weight.type` - term weighting (`"TF/IDF"` by default) (try `help(DocumentTermMatrix)` to know another options)
+* `distance.measure` - measure (`"euclidean"` by default) to use on `dist` function (try `help(dist)` to know another options)
+* `dist.args` - list of arguments (empty by default) to use on `dist` function (try `help(dist)` to know the arguments)
+* `algorithm.type` - clustering algorithm to use where the possibilities are `"hierarchical"` and `"k-means"` (being this one by default)
+* `hclust.args` - list of arguments (`list(method="ward.D")` by default) to use on `hclust` function (try `help(hclust)` to know the arguments)
+* `kmeans.args` - list of arguments (`list(algorithm="Lloyd")` by default) to use on `kmeans` function (try `help(kmeans)` to know the arguments)
+* `cluster.percentage` - number of clusters required based on the proportion of pairs (`0.1` by default)
+* `remove.stopwords` - stopwords are removed on corpus mapping (where `use.stemming` and `exceptions` parameters also are used) if it is allowed (`TRUE` by default) 
+* `words.number` - number of the most frequent words from each cluster that are used as labels (`1` by default)
+
+The obtained data frame has `entity1.name`, `entity2.name`, `cluster.key` and `semantic.label`. This attributes correspond to the left and right elements from clustered pairs, the numbers of clusters where pairs are assigned and the labels that distinguish semantic relations between pairs.
+
 
 ## EVALUATION
 
