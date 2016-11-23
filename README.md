@@ -2,12 +2,12 @@
 Framework to clustering relations between named entities based on the context. Also it can evaluate the clustering results by constraint pairs. It is accepted only non-annotated texts as input.
 
 Phases:
-_1. Initialization
-_2. Preprocessing
-__2.1. Named Entity Processing
-__2.2. Named Entity Pairing
-_3. Clustering
-_4. Evaluation
+ 1. Initialization
+ 2. Preprocessing
+  2.1. Named Entity Processing
+  2.2. Named Entity Pairing
+ 3. Clustering
+ 4. Evaluation
 
 ## INITIALIZATION
 
