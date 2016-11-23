@@ -4,7 +4,7 @@ Framework to clustering relations between named entities based on the context. A
 Phases:
  1. Initialization
  2. Preprocessing
-   1. Named Entity Processing
+   1. Named Entity Extraction
    2. Named Entity Pairing
  3. Clustering
  4. Evaluation
@@ -44,7 +44,7 @@ Third, set some parameters:
 
 ## PREPROCESSING
 
-### NAMED ENTITY PROCESSING
+### NAMED ENTITY EXTRACTION
 
 To know where named entities are on a text, there are two ways:
 * `extractEntities` function locates named entities on input text(s), returning a data frame with 5 columns (please install `PAMPO` package and read respective documentation)
