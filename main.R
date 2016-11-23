@@ -9,6 +9,8 @@ source("relation-extraction.R")
 source("pair-treatment.R")
 source("evaluation.R")
 
+
+# TODO - Complete this.
 operateRelationship<-function(entity.info, operation.option=1,
                               data.type="folder", content, idiom="pt", what.context="between",
                               only.consecutive=TRUE, dateline.removing="", exceptions=c(), use.stemming=TRUE)
