@@ -102,6 +102,13 @@ Picking named entity pairs and respective contexts, pair clustering can be execu
 The obtained data frame has `entity1.name`, `entity2.name`, `cluster.key` and `semantic.label`. This attributes correspond to the left and right elements from clustered pairs, the numbers of clusters where pairs are assigned and the labels that distinguish semantic relations between pairs.
 
 
+
 ## EVALUATION
 
-...
+After pairs be clustered, it is possible to evaluate the result by F1. Using `evaluateClustering`, it is necessary to give values for the arguments:
+* `clusters` - data frame with named entity pairs (`entity1.name` and `entity2.name`), identifications of respective clusters (`cluster.key`) and the word sets that characterize semantic relations (`semantic.label`)
+* `must.link` - vectors with strings of constraint pairs, where elements are named entity pairs and it could share the same cluster. The named entity strings of each pair element should be disposed, where left element is followed by right element like on `clusters` data frame. Both elements also should be followed.
+* `cannot.link` - vectors with strings of constraint pairs, where elements are named entity pairs and it couldn't share the same cluster. The named entity strings of each pair element should be disposed, where left element is followed by right element like on `clusters` data frame. Both elements also should be followed.
+* `logging` - if `TRUE`, constraint pairs, respective alerts of matching and values of precision/recall/F1 are showed. Otherwise, nothing is showed.
+A value of double type with F1 score is returned.
+
