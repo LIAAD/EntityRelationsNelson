@@ -4,8 +4,8 @@ Framework to clustering relations between named entities based on the context. A
 Phases:
 1. Initialization
 2. Preprocessing
-  2.1. Named Entity Processing
-  2.2. Named Entity Pairing
+  1. Named Entity Processing
+  2. Named Entity Pairing
 3. Clustering
 4. Evaluation
 
