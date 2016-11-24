@@ -23,7 +23,7 @@ Second, load the following R files:
 * `pair-treatment`
 * `evaluation`
 
-Third, set some parameters:
+Third, set some parameters in the environment:
 * `data.type`
   * `"folder"` if input is a folder with texts
   * `"text"` if input is a given text
