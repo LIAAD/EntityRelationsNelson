@@ -1,5 +1,5 @@
 
-# Obtain the number of must-link or cannot pairs with shared cluster between elements
+# Obtain number of must-link or cannot-link pairs with shared cluster
 countAssociations<-function(cluster.assigns, elements, info="", logging=FALSE)
 {
   if(logging)
@@ -28,7 +28,8 @@ countAssociations<-function(cluster.assigns, elements, info="", logging=FALSE)
 
 
 
-# Calculate total of pairs correctly predicted in same cluster over total of pairs predicted in same cluster 
+# Calculate total of pairs correctly predicted in same cluster
+#over total of pairs predicted in same cluster 
 getPrecision<-function(clustering, must.link, cannot.link, log)
 {
   MSC <- countAssociations(clustering, must.link, "Must-Link Pairs", log)
@@ -41,7 +42,8 @@ getPrecision<-function(clustering, must.link, cannot.link, log)
 
 
 
-# Calculate total of pairs correctly predicted in same cluster over total of pairs actually in same cluster 
+# Calculate total of pairs correctly predicted in same cluster
+#over total of pairs actually in same cluster 
 getRecall<-function(clustering, must.link, log)
 {
   MSC <- countAssociations(clustering, must.link, logging = FALSE)
@@ -64,7 +66,7 @@ getF1<-function(precision, recall)
 
 
 
-#Do the evaluation, and present the traditional information retrieval measures
+# Do evaluation and present traditional measures of information retrieval
 evaluateClustering<-function(clusters, must.link, cannot.link, logging=FALSE)
 {
   p <- getPrecision(clusters, must.link, cannot.link, logging)
@@ -79,7 +81,7 @@ evaluateClustering<-function(clusters, must.link, cannot.link, logging=FALSE)
 
 
 
-#Represent scores with different cluster quantities to various distance measures
+# Represent scores with different cluster quantities to various distance measures
 composeGraphic<-function(cluster.quantities, scores, distance.measures,
                          color.names=c("red","blue","orange","green","brown","gray"),
                          weight, algorithm, experience)

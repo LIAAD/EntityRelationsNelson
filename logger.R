@@ -1,5 +1,5 @@
 
-#Observe pieces of text
+# Observe pieces of text
 sentenceLog<-function(sentence.location, sentence)
 {
   info<-paste("\tSentence ", sentence.location[1],
@@ -15,7 +15,7 @@ sentenceLog<-function(sentence.location, sentence)
 
 
 
-#Facts about a context
+# Facts about a context
 contextLog<-function(file.name, sentence.position, context.entities, context)
 {
   file.info <- paste("File:", file.name, "\n")
@@ -34,7 +34,7 @@ contextLog<-function(file.name, sentence.position, context.entities, context)
 
 
 
-#Alert to a relation
+#Alert to relationship
 relationLog<-function(some.entity, another.entity)
 {
   alert<-paste("There is a relation between \"", some.entity, "\" and \"",
@@ -132,7 +132,7 @@ clusteringLog<-function(cluster, pairs, header)
 
 
 
-#Present the measures
+# Present measures
 evaluationLog<-function(measure)
 {
   cat("\nPrecision: ", round(measure[1]*100, 2),"%", sep = '')
@@ -142,7 +142,7 @@ evaluationLog<-function(measure)
 
 
 
-#Presented table with portuguese language content in LaTeX notation
+# Present table with portuguese language content in LaTeX notation
 showTable<-function(data.content, content.type="data_frame_header")
 {
   line <- "\t\t\t\t\\hline\n"

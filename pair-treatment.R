@@ -64,7 +64,7 @@ discriminateContexts<-function(pairs, threshold=9)
 
 
 
-# Get or remove entity pairs from the existing ones
+# Get or remove named entity pairs from the existing ones
 choosePairs<-function(total.pairs, partial.pairs, removing=FALSE, double.pairs=FALSE)
 {
   if(removing)

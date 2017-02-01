@@ -1,5 +1,5 @@
 
-#Confirm if two entities are on the same piece of text
+# Confirm if two named entities are in the same piece of text
 sameSentence<-function(entity1, entity2)
 {
   same.file <- entity1[,"File"]==entity2[,"File"]
@@ -14,7 +14,7 @@ sameSentence<-function(entity1, entity2)
 
 
 
-#Confirm if two entities are not the same
+# Confirm if two named entities are distinct concepts
 distinctEntities<-function(entity1, entity2)
 {
   disambiguation1<-entity1[,"Entity_desamb"]
@@ -31,22 +31,22 @@ distinctEntities<-function(entity1, entity2)
 # TODO - Know what the i-th named entity with same string to extract the right intermediate context 
 buildRelation<-function(first.entity, second.entity)
 {
-  #Get the text file name and the position of the sentence
+  #Get the text file name and the sentence position
   text.name<-first.entity[,"File"]
   paragraph<-as.integer(first.entity[,"Paragraph"])
   sentence<-as.integer(first.entity[,"Sentence"])
   
-  #What the entities
+  #Get the named entities
   entity1.name<-first.entity[,"Entity"]
   entity2.name<-second.entity[,"Entity"]
   
   relationLog(first.entity[,"Entity_desamb"], second.entity[,"Entity_desamb"])
   
-  #Entities and its positions in a text
+  #Named entities and its positions in a text
   position<-c(paragraph, sentence)
   entity.pair<-c(entity1.name, entity2.name)
   
-  #Get entity pairs and respective contexts 
+  #Get context from pair data 
   context<-extractContext(text.name, position, entity.pair)
   
   relationship<-c(entity1.name, entity2.name, context)
@@ -58,7 +58,7 @@ buildRelation<-function(first.entity, second.entity)
 
 
 
-#Print info and review pairs
+# Print info and review pairs
 treatRelations<-function(relations, lexicographical.order, file.name)
 {
   total<-paste("Number of detected relations:", nrow(relations), "\n")
@@ -71,8 +71,8 @@ treatRelations<-function(relations, lexicographical.order, file.name)
   }
   if(file.name!="")
   {
-    write.table(relations, paste(relation.file,".csv",sep=''),
-                sep=", ", row.names=FALSE, quote=FALSE)
+    title<-paste(file.name,".rds",sep='')
+    saveRDS(relations, file=title)
   }
   relations
 }
@@ -129,7 +129,7 @@ scanIteratively<-function(entities, relation.file="", order.significance=FALSE)
 
 
 
-#Verify possible relations between a entity and next entities on same sentence
+# Verify possible relations between a named entity and each of next ones
 checkRelation<-function(current.entity, another.ones)
 {
   do.call("rbind",
@@ -148,7 +148,7 @@ checkRelation<-function(current.entity, another.ones)
 
 
 
-# Try to find relations between a entity and the following one(s)
+# Try to find relations between a named entity and the following one(s)
 searchRelations<-function(times, next.neighbours){ 
 
   do.call("rbind", lapply(times, function(y, neighbours=next.neighbours) {
@@ -160,13 +160,13 @@ searchRelations<-function(times, next.neighbours){
       n<-nrow(neighbours)
       new.relations <- checkRelation(neighbours[y,], neighbours[(y+1):n,])
     }
-    #Add relations from a sentence to relations already discovered
+    #Add relation pairs from a sentence to already-discovered relations
     new.relations}))
 }
 
 
 
-#Carry over sentences with entity references
+# Carry over sentences with named entities
 exploreSentences<-function(entities)
 {
   sentences<-unique(entities[,c(1,2,3)])

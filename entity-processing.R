@@ -20,7 +20,7 @@ extractEntities<-function(source, to="extracted_entities")
   }
   extraction.time <- round(difftime(end.extraction, start.extraction, units = "mins"), 3)
   
-  #Add the File column, avoiding code changes to deal with text exception
+  #Add the File column, avoiding code changes to deal with text option
   if(data.type=="text")
   {
     File<-"?"
@@ -38,10 +38,10 @@ extractEntities<-function(source, to="extracted_entities")
   cat(info4,"\n\n\n")
   
   entity.positions[c(2,3)] <- lapply(entity.positions[c(2,3)], as.integer)
-  output.file<-paste(to, ".csv", sep = '')
 
-  if(to!="") #Entity locations are written on a file
+  if(to!="") #Positions of named entities are written on a file
   {
+    output.file<-paste(to, ".csv", sep = '')
     write.table(entity.positions, output.file, sep=", ", row.names=FALSE,
                 col.names=TRUE, quote = FALSE, append = FALSE)
   }
@@ -50,11 +50,11 @@ extractEntities<-function(source, to="extracted_entities")
 
 
 
-# Get entity locations from a former recognition
+# Get positions of named entities from a former recognition
 fileExtraction<-function(file, file.header=TRUE, file.separator=", ")
 {
-  # Data frame imported from a file with information about entities
-  #and their positions through a given corpus
+  # Data frame imported from a file with information about
+  #named entities and their positions through a given corpus
   extracted.entities<-read.csv(file, header=file.header, sep=file.separator)
   extracted.entities[c(4,5)] <- lapply(extracted.entities[c(4,5)],
                                        trimws, which="left")
@@ -62,9 +62,8 @@ fileExtraction<-function(file, file.header=TRUE, file.separator=", ")
 }
 
 
-# Entity treatment based on pairs with elements not found
-#in respective sentences (example: NER bugs)
-#and excessive reference filtering
+# Preprocessing of named entities based on elements not found
+#in respective sentences and on uninteresting elements
 cleanEntities<-function(entities, special.cases=c())
 {
   entities[c(1,4,5)] <- lapply(entities[c(1,4,5)], as.character)
@@ -80,7 +79,7 @@ cleanEntities<-function(entities, special.cases=c())
 
 
 
-#Set the number of entity occurrences in each sentence
+#Set the frequency of named entities in each sentence
 countEntities<-function(entity.locations)
 {
   occurrences<-rep(1, nrow(entity.locations))
@@ -95,7 +94,7 @@ countEntities<-function(entity.locations)
 
 
 
-#Verify if entity counting is correct for every sentences
+#Verify if counting of named entities is completely correct
 confirmOccurrences<-function(entity.locations, entity.counter)
 {
   right<-TRUE
@@ -106,7 +105,7 @@ confirmOccurrences<-function(entity.locations, entity.counter)
     p<-entity.counter[i,"Paragraph"]
     s<-entity.counter[i,"Sentence"]
     
-    #Select the right lines with the same sentence 
+    #Select elements corresponding to the same sentence
     location<-entity.locations[entity.locations$File==f &
                                  entity.locations$Paragraph==p &
                                  entity.locations$Sentence==s,]
@@ -125,10 +124,10 @@ confirmOccurrences<-function(entity.locations, entity.counter)
 
 
 
-#Preserve sentences with certain numbers of entities
+#Preserve sentences with certain frequencies of named entities
 filterSentences<-function(entity.locations, sentence.entities, entity.number=c(2))
 {
-  #To maintain reference ordering
+  #To maintain ordering
   entity.locations$ID  <- 1:nrow(entity.locations)
   #Choose the exact sentences
   sentence.entities<-sentence.entities[is.element(sentence.entities$occurrences,

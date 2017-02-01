@@ -147,7 +147,7 @@ createPairs<-function(pairs)
 
 lookPairs<-function(relation.pairs)
 {
-  #Select only entity references
+  #Select only named entity pairs
   pairs<-relation.pairs[,c(1,2)]
 
   freq<-createPairs(pairs)

@@ -1,12 +1,12 @@
 library(tm)
 
-#Where entities are on a sentence
-FilterContext<-function(entity.pair, sentence, filter.type)
+# Where named entities are in a sentence
+filterContext<-function(entity.pair, sentence, filter.type)
 {
-  # Log from analyzed sentence 
+  #Log from analyzed sentence 
   cat("Candidate sentence: \"", sentence, "\"\n\n", sep='')
   
-  # Decompose entities
+  #Decompose named entities
   first.term<-unlist(strsplit(entity.pair[1]," "))
   second.term<-unlist(strsplit(entity.pair[2]," "))
 
@@ -31,7 +31,7 @@ FilterContext<-function(entity.pair, sentence, filter.type)
 
 
 
-#Locate the right sentence based on the right paragraph
+# Locate the right sentence based on the right paragraph
 getSentence<-function(position, sentence.set)
 {
   sentences<-strsplit(sentence.set, "\\.|!|\\?")
@@ -42,7 +42,7 @@ getSentence<-function(position, sentence.set)
 
 
 
-#Context extraction from a text or a file
+# Context extraction from a text or a file
 extractContext<-function(text.file, sentence.position, context.entities)
 {
   #Verify what is the context type
@@ -69,13 +69,13 @@ extractContext<-function(text.file, sentence.position, context.entities)
   
   sentence<-getSentence(sentence.position, text.sentences)
   
-  # Get every words
+  #Get every words
   if (context==1){
-    #In this case, except words before first entity and after second entity
-    context<-FilterContext(context.entities, sentence, "middle")
+    #Exceptio words before left reference and after right reference
+    context<-filterContext(context.entities, sentence, "middle")
   }
   else if(context==2)
-    context<-FilterContext(context.entities, sentence, "everything")
+    context<-filterContext(context.entities, sentence, "everything")
   
   context
 }

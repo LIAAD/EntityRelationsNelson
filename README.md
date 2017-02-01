@@ -79,7 +79,7 @@ The returned data frame has the same structure but without named entities escapi
 
 Such way that availed named entities are used to pairing, it is required to use `scanIteratively` or `scanEfficiently` where both has the same arguments:
 * `entities` - a data frame with the attributes returned on recognition stage
-* `relation.file` - a string, when it is not empty (value by default), to name a CSV file with every pairs and respective contexts encountered
+* `relation.file` - a string, when it is not empty (value by default), to name a RDS file with every encountered pairs and respective contexts
 * `order.significance`
  * `TRUE` - elements of named entity pairs are displayed by appearance order on sentence
  * `FALSE` - the elements are displayed by lexicographic order

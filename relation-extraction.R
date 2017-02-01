@@ -1,5 +1,5 @@
 
-#Join contexts with same pair in common
+# Join contexts with pair in common
 aggregateContexts<-function(relations)
 {
   aggregate(context~entity1.name+entity2.name, data=relations, function(x,contexts=c()){
@@ -10,7 +10,7 @@ aggregateContexts<-function(relations)
 
 
 
-#Assign a corpus with contexts from entity pairs
+# Assign a corpus with contexts from named entity pairs
 getCorpus<-function(pair.contexts, removal)
 {
   corpus<-VCorpus(VectorSource(pair.contexts$context))
@@ -28,7 +28,7 @@ getCorpus<-function(pair.contexts, removal)
 
 
 
-#Pair profiling
+# Pair profiling
 weightingChoice<-function(corpus, type)
 {
   if(type=="TF")
