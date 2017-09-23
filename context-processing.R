@@ -1,27 +1,17 @@
 library(tm)
 
-# Where named entities are in a sentence
-filterContext<-function(entity.pair, sentence, filter.type)
+# Where entities are in a sentence
+filterContext<-function(entity.pair, sentence, filter.type, frequencies)
 {
   #Log from analyzed sentence 
   cat("Candidate sentence: \"", sentence, "\"\n\n", sep='')
-  
-  #Decompose named entities
-  first.term<-unlist(strsplit(entity.pair[1]," "))
-  second.term<-unlist(strsplit(entity.pair[2]," "))
 
-  debugEntities(entity.pair, sentence)
+  center<-debugEntities(entity.pair, sentence,
+                        frequencies[1], frequencies[2])
   
-  #Filter the right context
+  #Obtain the right context
   if (filter.type=="middle")
-  {
-    #Cut on entity locations
-    no.left.entity<-unlist(strsplit(sentence, entity.pair[1]))
-    
-    middle<-unlist(strsplit(paste(no.left.entity[-1], collapse = ''),
-                              entity.pair[2]))
-    context<-middle[1]
-  }
+    context<-center
   else if (filter.type=="everything")
     context<-sentence
   else
@@ -43,7 +33,7 @@ getSentence<-function(position, sentence.set)
 
 
 # Context extraction from a text or a file
-extractContext<-function(text.file, sentence.position, context.entities)
+extractContext<-function(text.file, sentence.position, context.entities, entity.frequency)
 {
   #Verify what is the context type
   context<-match(what.context,c('between','all'))
@@ -70,12 +60,16 @@ extractContext<-function(text.file, sentence.position, context.entities)
   sentence<-getSentence(sentence.position, text.sentences)
   
   #Get every words
-  if (context==1){
-    #Exceptio words before left reference and after right reference
-    context<-filterContext(context.entities, sentence, "middle")
+  if (context==1)
+  {
+    #Exceptio for words before left entity and after right entity
+    context<-filterContext(context.entities, sentence,
+                           "middle", entity.frequency)
   }
   else if(context==2)
-    context<-filterContext(context.entities, sentence, "everything")
-  
+  {
+    context<-filterContext(context.entities, sentence,
+                           "everything", entity.frequency)
+  }
   context
 }
