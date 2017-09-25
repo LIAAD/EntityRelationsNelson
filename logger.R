@@ -37,8 +37,10 @@ contextLog<-function(file.name, sentence.position, context.entities, context)
 #Alert to relationship
 relationLog<-function(some.entity, another.entity)
 {
-  alert<-paste("There is a relation between \"", some.entity, "\" and \"",
-           another.entity, "\"!", "\n\n", sep = '')
+  alert<-paste("There is a relation between \"",
+               some.entity, "\" and \"",
+               another.entity, "\"!", "\n\n",
+               sep = '')
   cat(alert)
 }
 

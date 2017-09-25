@@ -1,3 +1,4 @@
+#library(rJava)
 library(PAMPO)
 
 # Proceed to a recognition of named entities

@@ -1,4 +1,5 @@
-setwd("C:/Users/Nelson/MEOCloud/Dissertation-work")
+#Sys.setenv(JAVA_HOME='C:\\Program Files\\Java\\jre1.8.0_121\\')
+setwd("C:/Users/nam19/MEOCloud/Dissertation-work")
 source("entity-processing.R")
 source("logger.R")
 source("debugger.R")
@@ -12,11 +13,11 @@ source("evaluation.R")
 # start.time <- Sys.time()
 
 data.type<<-"folder" #"text"
-textual.content<<-"C:/Users/Nelson/MEOCloud/Dissertation-work/textos/"
+textual.content<<-"C:/Users/nam19/MEOCloud/Dissertation-work/textos/"
 idiom<<-"pt"
 what.context<<-"between" #"all"
-only.consecutive<<-TRUE
-exceptions<<-c("Lusa", "Fim", "LUSA", "FIM", "dez", "Dez")#
+only.consecutive<<-FALSE
+exceptions<<-c()#c("Lusa", "Fim", "LUSA", "FIM", "dez", "Dez")
 use.stemming<<-TRUE
 
 every.entities<-extractEntities(source=textual.content, to="nothing")#
